@@ -11,16 +11,16 @@ create procedure dbo.CreateAndEnableFailureAlerts
                 Create agent alerts if not exists, can also add alerts to an operator and/or update agent jobs.
 
     Example calls:
-            Exec [Config].[EnableAgentFailureAlerts] -- checks and creates alert only
+            Exec [dob].[EnableAgentFailureAlerts] -- checks and creates alert only
             
-            Exec [Config].[EnableAgentFailureAlerts] @OpName ='TestOp' -- checks and creates alert and adds alerts to the operator listed
+            Exec [dbo].[EnableAgentFailureAlerts] @OpName ='TestOp' -- checks and creates alert and adds alerts to the operator listed
 
-            Exec [Config].[EnableAgentFailureAlerts] @OpName ='TestOp' -- checks and creates alert and adds alerts to the operator listed
+            Exec [dbo].[EnableAgentFailureAlerts] @OpName ='TestOp' -- checks and creates alert and adds alerts to the operator listed
 
-            Exec [Config].[EnableAgentFailureAlerts] @OpName ='TestOp', @UpdateJobs = 1 -- checks and creates alerts and adds alerts if not exists to the operator listed. 
+            Exec [dbo].[EnableAgentFailureAlerts] @OpName ='TestOp', @UpdateJobs = 1 -- checks and creates alerts and adds alerts if not exists to the operator listed. 
                                                                                             This will also update all agent jobs to use this operator
 
-            Exec [Config].[EnableAgentFailureAlerts] @OpName ='TestOp', @UpdateJobs = 1, @JobName = 'DBA' -- checks and creates alerts and adds alerts if not exists to the operator listed. 
+            Exec [dbo].[EnableAgentFailureAlerts] @OpName ='TestOp', @UpdateJobs = 1, @JobName = 'DBA' -- checks and creates alerts and adds alerts if not exists to the operator listed. 
                                                                                             This will also update agent jobs either with this name for using a part match 'DBAHub %'
 
 ****************************************************************************************************************************************************************/
