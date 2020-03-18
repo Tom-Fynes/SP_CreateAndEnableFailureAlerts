@@ -197,8 +197,8 @@ END
 
 IF (SELECT SERVERPROPERTY ('IsHadrEnabled')) = 1 BEGIN
 
-    if (select count (*) from msdb.dbo.sysalerts where name = N'AlwaysOn - Role Change') < 1  begin
-        EXEC msdb.dbo.sp_add_alert @name=N'AlwaysOn - Role Change',
+    if (select count (*) from msdb.dbo.sysalerts where name = N'Hadr - Role Change') < 1  begin
+        EXEC msdb.dbo.sp_add_alert @name=N'Hadr - Role Change',
         @message_id=1480,
         @severity=0,
         @enabled=1,
@@ -206,12 +206,12 @@ IF (SELECT SERVERPROPERTY ('IsHadrEnabled')) = 1 BEGIN
         @include_event_description_in=1,
         @job_id=N'00000000-0000-0000-0000-000000000000'
 
-        print 'AlwaysOn - Role Change alert has been created'
+        print 'Hadr - Role Change alert has been created'
     End
 
-    if (select count (*) from msdb.dbo.sysalerts where name = N'AlwaysOn Data Movement Suspended') < 1  begin
+    if (select count (*) from msdb.dbo.sysalerts where name = N'Hadr Data Movement Suspended') < 1  begin
         EXEC msdb.dbo.sp_add_alert
-        @name=N'AlwaysOn - Data Movement Suspended',
+        @name=N'Hadr - Data Movement Suspended',
         @message_id=35264,
         @severity=0,
         @enabled=1,
@@ -220,12 +220,12 @@ IF (SELECT SERVERPROPERTY ('IsHadrEnabled')) = 1 BEGIN
         @category_name=N'[Uncategorized]',
         @job_id=N'00000000-0000-0000-0000-000000000000'
 
-        print 'AlwaysOn Data Movement Suspended alert has been created'
+        print 'Hadr Data Movement Suspended alert has been created'
     END
     
-    if (select count (*) from msdb.dbo.sysalerts where name = N'AlwaysOn - Data Movement Resumed') < 1  begin
+    if (select count (*) from msdb.dbo.sysalerts where name = N'Hadr - Data Movement Resumed') < 1  begin
         EXEC msdb.dbo.sp_add_alert
-        @name=N'AlwaysOn - Data Movement Resumed',
+        @name=N'Hadr - Data Movement Resumed',
         @message_id=35265,
         @severity=0,
         @enabled=1,
@@ -234,7 +234,7 @@ IF (SELECT SERVERPROPERTY ('IsHadrEnabled')) = 1 BEGIN
         @category_name=N'[Uncategorized]',
         @job_id=N'00000000-0000-0000-0000-000000000000'
 
-        print 'AlwaysOn Data Movement Resumed alert has been created'
+        print 'Hadr Data Movement Resumed alert has been created'
     END
 END
 
@@ -353,7 +353,7 @@ IF (@OpName is not null or @OpName <> '') BEGIN
         If (Select Count(*) from msdb.dbo.sysoperators o Inner Join  msdb.dbo.sysnotifications N on N.operator_id = o.id Inner Join msdb.dbo.sysalerts a ON a.id = n.alert_id 
             Where O.name = @OpName And A.Message_id = 1480 ) < 1 Begin
 
-            EXEC msdb.dbo.sp_add_notification @alert_name = N'AlwaysOn - Role Change', 
+            EXEC msdb.dbo.sp_add_notification @alert_name = N'Hadr - Role Change', 
                 @operator_name= @OpName, 
                 @notification_method = 1;
         END       
@@ -361,7 +361,7 @@ IF (@OpName is not null or @OpName <> '') BEGIN
         If (Select Count(*) from msdb.dbo.sysoperators o Inner Join  msdb.dbo.sysnotifications N on N.operator_id = o.id Inner Join msdb.dbo.sysalerts a ON a.id = n.alert_id 
             Where O.name = @OpName And A.Message_id = 35264 ) < 1 Begin
 
-            EXEC msdb.dbo.sp_add_notification @alert_name = N'AlwaysOn - Data Movement Suspended', 
+            EXEC msdb.dbo.sp_add_notification @alert_name = N'Hadr - Data Movement Suspended', 
                 @operator_name= @OpName, 
                 @notification_method = 1;
         END  
@@ -369,7 +369,7 @@ IF (@OpName is not null or @OpName <> '') BEGIN
         If (Select Count(*) from msdb.dbo.sysoperators o Inner Join  msdb.dbo.sysnotifications N on N.operator_id = o.id Inner Join msdb.dbo.sysalerts a ON a.id = n.alert_id 
             Where O.name = @OpName And A.Message_id = 35265 ) < 1 Begin
 
-            EXEC msdb.dbo.sp_add_notification @alert_name = N'AlwaysOn - Data Movement Resumed', 
+            EXEC msdb.dbo.sp_add_notification @alert_name = N'Hadr - Data Movement Resumed', 
                 @operator_name= @OpName, 
                 @notification_method = 1;
         END 
